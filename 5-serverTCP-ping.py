@@ -20,7 +20,7 @@ while True:
         if recvMsg == b'\x18' or not recvMsg:   # interrompe quando receber ctrl-X (em bytes)
             break
         print(cliente, recvMsg.decode())
-        conn.send(recvMsg)
+        conn.send(recvMsg) # Envia de volta a mesma mensagem recebida (echo)
     break
 
 print('Finalizando conexão do cliente', cliente)
