@@ -5,15 +5,15 @@ minhaPorta = 5001
 
 sockobj = socket(AF_INET, SOCK_STREAM)
 dest = (meuHost, minhaPorta)
-sockobj.connect(dest)
+sockobj.connect(dest) # Conecta ao servidor TCP
 
 print('Para sair use CTRL+X\n')
 msg = ''
 while msg != '\x18':
-    msg = input()
-    sockobj.send(msg.encode())
+    msg = input() # Usuário digita mensagem
+    sockobj.send(msg.encode())  # Envia ao servidor
     
-    recvMsg = sockobj.recv(1024)
-    print('Resposta: ', recvMsg.decode())
+    recvMsg = sockobj.recv(1024) # Espera a resposta
+    print('Resposta: ', recvMsg.decode()) # Exibe a resposta (eco)
 
-sockobj.close()
+sockobj.close() # Fecha conexão
