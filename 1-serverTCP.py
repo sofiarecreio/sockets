@@ -1,26 +1,23 @@
-from socket import *
+from socket import *  # Importa as funções da biblioteca socket
 
-meuHost = ''
-minhaPorta = 5001
+meuHost = ''  # Aceita conexões de qualquer IP
+minhaPorta = 5001  # Porta do servidor
 
-# Cria um objeto socket
-# AF_INET == protocolo de endereco IP
-# SOCK_STREAM == protocolo de transferência TCP
-sockobj = socket(AF_INET, SOCK_STREAM)
+sockobj = socket(AF_INET, SOCK_STREAM)  # Cria um socket TCP
 orig = (meuHost, minhaPorta)
-sockobj.bind(orig)
-sockobj.listen(1)
+sockobj.bind(orig)  # Associa o socket ao endereço e porta
+sockobj.listen(1)  # Escuta até 1 conexão pendente
 
 while True:
-    conn, cliente = sockobj.accept()
+    conn, cliente = sockobj.accept()  # Aceita uma nova conexão
     print('Conectado por:', cliente)
 
     while True:
-        recvMsg = conn.recv(1024)
-        if recvMsg == b'\x18' or not recvMsg:   # interrompe quando receber ctrl-X (em bytes)
+        recvMsg = conn.recv(1024)  # Recebe até 1024 bytes de dados
+        if recvMsg == b'\x18' or not recvMsg:  # Encerra com Ctrl+X
             break
-        print(cliente, recvMsg.decode())
+        print(cliente, recvMsg.decode())  # Imprime remetente + mensagem
     break
 
 print('Finalizando conexão do cliente', cliente)
-conn.close()
+conn.close()  # Fecha a conexão TCP com o cliente
